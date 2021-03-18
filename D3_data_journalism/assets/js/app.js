@@ -70,16 +70,17 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
 //   var barWidth = (chartWidth - (barSpacing * (healthData.length - 1))) / healthData.length;
 
 
-  // Create code to build the scatter chart using the healthData.
-//   chartGroup.selectAll(".bar")
-//     .data(healthData)
-//     .enter()
-//     .append("rect")
-//     .classed("bar", true)
-//     .attr("width", d => barWidth)
-//     .attr("height", d => d.hours * scaleY)
-//     .attr("x", (d, i) => i * (barWidth + barSpacing))
-//     .attr("y", d => chartHeight - d.hours * scaleY);
+//  Create code to build the scatter chart using the healthData.
+  chartGroup.selectAll("circle")
+    .data(healthData)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xLinearScale(d.poverty))
+    .attr("cy", d => yLinearScale(d.healthcare))
+    .attr("r", 20)
+    .attr("fill", "lightblue")
+    .attr("opacity", ".75");
+
 }).catch(function(error) {
   
     console.log(error);
