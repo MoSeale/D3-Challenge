@@ -27,14 +27,17 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
 
 // Load data from data.csv
-d3.csv("data.csv").then(function(healthData) {
+d3.csv("assets/data/data.csv").then(function(healthData) {
 
   // Print the healthData
   console.log(healthData);
 
   // Cast the hours value to a number for each piece of healthData
   healthData.forEach(function(data) {
-    //data.hours = +data.hours;
+    data.poverty = +data.poverty;
+    data.healthcare = +data.healthcare;
+    console.log(data.poverty)
+    console.log(data.healthcare)
   });
 
   var barSpacing = 10; // desired space between each bar
@@ -45,15 +48,16 @@ d3.csv("data.csv").then(function(healthData) {
 
 
   // Create code to build the bar chart using the healthData.
-  chartGroup.selectAll(".bar")
-    .data(healthData)
-    .enter()
-    .append("rect")
-    .classed("bar", true)
-    .attr("width", d => barWidth)
-    .attr("height", d => d.hours * scaleY)
-    .attr("x", (d, i) => i * (barWidth + barSpacing))
-    .attr("y", d => chartHeight - d.hours * scaleY);
+//   chartGroup.selectAll(".bar")
+//     .data(healthData)
+//     .enter()
+//     .append("rect")
+//     .classed("bar", true)
+//     .attr("width", d => barWidth)
+//     .attr("height", d => d.hours * scaleY)
+//     .attr("x", (d, i) => i * (barWidth + barSpacing))
+//     .attr("y", d => chartHeight - d.hours * scaleY);
 }).catch(function(error) {
-  console.log(error);
+  
+    console.log(error);
 });
