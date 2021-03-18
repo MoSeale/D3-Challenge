@@ -36,18 +36,41 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
   healthData.forEach(function(data) {
     data.poverty = +data.poverty;
     data.healthcare = +data.healthcare;
-    console.log(data.poverty)
-    console.log(data.healthcare)
+    //console.log(data.poverty)
+    //console.log(data.healthcare)
   });
 
-  var barSpacing = 10; // desired space between each bar
-  var scaleY = 10; // 10x scale on rect height
+    //scale functions
+    var xLinearScale = d3.scaleLinear()
+    .domain([8, d3.max(healthData, d => d.poverty)])
+    .range([0, chartWidth]);
 
-  // Create a 'barWidth' variable so that the bar chart spans the entire chartWidth.
-  var barWidth = (chartWidth - (barSpacing * (healthData.length - 1))) / healthData.length;
+    var yLinearScale = d3.scaleLinear()
+    .domain([0, d3.max(healthData, d => d.healthcare)+2])
+    .range([chartHeight, 0]);
+
+    //create axis functions
+    var bottomAxis = d3.axisBottom(xLinearScale);
+    var leftAxis = d3.axisLeft(yLinearScale);
+    //append axes to the chart
+    chartGroup.append("g")
+    .attr("transform", `translate(0, ${chartHeight})`)
+    .call(bottomAxis);
+
+    chartGroup.append("g")
+    .call(leftAxis);
 
 
-  // Create code to build the bar chart using the healthData.
+
+  
+//   var barSpacing = 10; // desired space between each bar
+//   var scaleY = 10; // 10x scale on rect height
+
+//   // Create a 'scatterWidth' variable so that the bar chart spans the entire chartWidth.
+//   var barWidth = (chartWidth - (barSpacing * (healthData.length - 1))) / healthData.length;
+
+
+  // Create code to build the scatter chart using the healthData.
 //   chartGroup.selectAll(".bar")
 //     .data(healthData)
 //     .enter()
