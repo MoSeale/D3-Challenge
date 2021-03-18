@@ -81,7 +81,8 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .attr("fill", "lightblue")
     .attr("opacity", ".75")
 
-    // event listener for onclick event
+
+   // event listener for onclick event
     .on("click", function(d) {
         alert(`(${d.poverty}, ${d.healthcare})`);
       })
@@ -94,7 +95,20 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
       .on("mouseout", function() {
         d3.select(this)
               .attr("fill", "lightblue");
-      })
+      });
+
+          //append state abbreviation to circle
+    chartGroup.selectAll(".stateText")
+    .data(healthData)
+    .enter()
+    .append('text')
+    .attr("x", d => xLinearScale(d.poverty) - 4)
+    .attr("y", d => yLinearScale(d.healthcare) + 2)
+    .attr("fill", "black")
+    .attr("font-size", "10")
+    .text(d => d.abbr)
+
+      
       
 
 
