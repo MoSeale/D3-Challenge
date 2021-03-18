@@ -79,9 +79,27 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", 20)
     .attr("fill", "lightblue")
-    .attr("opacity", ".75");
+    .attr("opacity", ".75")
+
+    // event listener for onclick event
+    .on("click", function(d) {
+        alert(`(${d.poverty}, ${d.healthcare})`);
+      })
+      // event listener for mouseover
+      .on("mouseover", function() {
+        d3.select(this)
+              .attr("fill", "red");
+      })
+      // event listener for mouseout
+      .on("mouseout", function() {
+        d3.select(this)
+              .attr("fill", "lightblue");
+      })
+      
+
+
 
 }).catch(function(error) {
   
     console.log(error);
-});
+})
