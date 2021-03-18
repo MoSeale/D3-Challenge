@@ -46,7 +46,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .range([0, chartWidth]);
 
     var yLinearScale = d3.scaleLinear()
-    .domain([0, d3.max(healthData, d => d.healthcare)+2])
+    .domain([0, d3.max(healthData, d => d.healthcare)+10])
     .range([chartHeight, 0]);
 
     //create axis functions
@@ -97,20 +97,28 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
               .attr("fill", "lightblue");
       });
 
-          //append state abbreviation to circle
+     //append state abbreviation to circle
     chartGroup.selectAll(".stateText")
     .data(healthData)
     .enter()
     .append('text')
-    .attr("x", d => xLinearScale(d.poverty) - 4)
-    .attr("y", d => yLinearScale(d.healthcare) + 2)
+    .attr("x", d => xLinearScale(d.poverty) - 10)
+    .attr("y", d => yLinearScale(d.healthcare) - 2)
     .attr("fill", "black")
     .attr("font-size", "10")
     .text(d => d.abbr)
 
+    ///Create labels to left and bottom of chart  
       
-      
+    // append axis labels
+    svg.append("text")
+        .attr("transform", `translate(${chartWidth/2}, ${svgHeight - 4})`)
+        .text("In Poverty (%)")
 
+
+    svg.append("text")
+        .attr("transform", `translate(10, ${svgHeight/2}), rotate(-90)`)
+        .text("Lacks Healthcare (%)")
 
 
 }).catch(function(error) {
